@@ -1,5 +1,5 @@
 module github.com/mqzabin/hugo-blog
 
-go 1.22.5
+go 1.22
 
-require github.com/theNewDynamic/gohugo-theme-ananke v2.6.7+incompatible // indirect
+require github.com/theNewDynamic/gohugo-theme-ananke v0.0.0-20240503174335-33fbda0e9d3e // indirect
