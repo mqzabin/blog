@@ -2,6 +2,9 @@ baseURL: 'https://example.org/'
 languageCode: 'pt-BR'
 title: 'Matheus Zabin'
 contentDir: Blog
+ignoreFiles:
+  - Blog/.obsidian*
+  - .stfolder*
 theme: 
   - 'github.com/theNewDynamic/gohugo-theme-ananke'
 # DefaultContentLanguage: pt-BR
