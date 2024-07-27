@@ -1,0 +1,27 @@
+baseURL: 'https://example.org/'
+languageCode: 'pt-BR'
+title: 'Blog do Zabin'
+theme: 
+  - 'github.com/theNewDynamic/gohugo-theme-ananke'
+# DefaultContentLanguage: pt-BR
+# languages:
+#   pt-BR:
+#     weight: 1
+#     contentDir: "content/pt-BR"
+#   en:
+#     weight: 2
+#     contentDir: "content/en"
+params:
+  ananke_socials:
+  - name: github
+    url: 'https://github.com/mqzabin'
+    label: 'GitHub'
+  - name: twitter
+    url: 'https://x.com/mqzabin'
+    label: 'Twitter'
+  - name: linkedin
+    url: 'https://www.linkedin.com/in/mqzabin/'
+    label: 'LinkedIn'
+module:
+  imports:
+    - path: github.com/theNewDynamic/gohugo-theme-ananke
