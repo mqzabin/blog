@@ -43,6 +43,7 @@ jobs:
           echo "go-version=$(go mod edit -json | jq -r .Go)" >> "$GITHUB_OUTPUT"
   build:
     runs-on: ubuntu-latest
+    needs: [ extract-go-version ]
     env:
       HUGO_VERSION: 0.128.0
     steps:
