@@ -81,9 +81,7 @@ jobs:
           TZ: America/Sao_Paulo
         with:
           version: latest
-          args:
-            - prod:build
-            - ${{ steps.pages.outputs.base_url }}/
+          args: prod:build ${{ steps.pages.outputs.base_url }}/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
