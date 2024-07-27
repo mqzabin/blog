@@ -40,7 +40,7 @@ func (c *Command) Env(name, value string) *Command {
 
 func (c *Command) Run(ctx context.Context) error {
 	successWriter := NewColorWriter(color.New(color.FgGreen), os.Stdout)
-	errorWriter := NewColorWriter(color.New(color.FgRed), os.Stdout)
+	errorWriter := NewColorWriter(color.New(color.FgRed), os.Stderr)
 
 	cmd := exec.CommandContext(ctx, c.command, c.args...)
 	cmd.Stdout = successWriter
