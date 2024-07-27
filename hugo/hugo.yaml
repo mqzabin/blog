@@ -3,6 +3,7 @@ languageCode: 'pt-BR'
 title: 'Matheus Zabin'
 ignoreFiles:
   - content/.obsidian*
+  - content/obsidian*
 theme: 
   - 'github.com/theNewDynamic/gohugo-theme-ananke'
 # DefaultContentLanguage: pt-BR

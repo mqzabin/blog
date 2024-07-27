@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_index.md",
+                "file": "obsidian/templates/New Post.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_index.md",
+                "file": "obsidian/templates/New Post.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "_index.md",
+                "file": "obsidian/templates/New Post.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_index.md"
+                "file": "obsidian/templates/New Post.md"
               }
             }
           }
@@ -137,21 +137,31 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "templater-obsidian:Templater": false,
+      "syncthing-integration:Open Syncthing conflict manager modal": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
-      "command-palette:Open command palette": false
+      "command-palette:Open command palette": false,
+      "modalforms:Edit forms": false
     }
   },
-  "active": "6adf6c074b2f2f8f",
+  "active": "f5de7bb7459bd1b3",
   "lastOpenFiles": [
-    "about.md",
+    "posts/2024/07-July/oi.md",
+    "obsidian/templates/New Post.md",
+    "posts/2024/07-July/lol.md",
+    "posts/2024/07-July/tchau.md",
+    "posts/2024/07-July/example-post.md",
     "_index.md",
+    "posts/2024/07-July",
+    "obsidian/templates",
+    "obsidian",
+    "about.md",
     "posts/2024/07-july/my-first-post copy.md",
     "posts/2024/07-july/my-first-post.md",
-    "posts/2024/07-july/example-post.md",
     "posts/2024/07-july/my-first-post copy 3.md",
     "posts/2024/07-july/my-first-post copy 2.md",
     "posts/2024/07-july",
