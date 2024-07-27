@@ -1,1 +1,1 @@
-Blog atualmente em construção
+Blog em construção

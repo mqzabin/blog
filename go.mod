@@ -1,4 +1,4 @@
-module github.com/mqzabin/hugo-blog
+module github.com/mqzabin/blog
 
 go 1.22
 

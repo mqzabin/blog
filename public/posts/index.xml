@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Blog do Zabin</title>
+    <title>Posts on Matheus Zabin</title>
     <link>http://localhost:1313/posts/</link>
-    <description>Recent content in Posts on Blog do Zabin</description>
+    <description>Recent content in Posts on Matheus Zabin</description>
     <generator>Hugo</generator>
     <language>pt-BR</language>
     <lastBuildDate>Wed, 15 May 2024 19:28:54 -0300</lastBuildDate>

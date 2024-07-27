@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "posts/2024/07-july/my-first-post.md",
+                "file": "about.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "posts/2024/07-july/my-first-post.md",
+                "file": "about.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "posts/2024/07-july/my-first-post.md",
+                "file": "about.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "posts/2024/07-july/my-first-post.md"
+                "file": "about.md"
               }
             }
           }
@@ -133,8 +133,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -149,13 +148,13 @@
   },
   "active": "f5de7bb7459bd1b3",
   "lastOpenFiles": [
-    "posts/2024/07-july/example-post.md",
     "_index.md",
-    "posts/2024/07-july/my-first-post copy 3.md",
     "about.md",
-    "posts/2024/07-july/my-first-post.md",
-    "posts/2024/07-july/my-first-post copy 2.md",
     "posts/2024/07-july/my-first-post copy.md",
+    "posts/2024/07-july/my-first-post.md",
+    "posts/2024/07-july/example-post.md",
+    "posts/2024/07-july/my-first-post copy 3.md",
+    "posts/2024/07-july/my-first-post copy 2.md",
     "posts/2024/07-july",
     "posts/2024",
     "posts"

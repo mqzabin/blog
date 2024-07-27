@@ -1,6 +1,6 @@
 baseURL: 'https://example.org/'
 languageCode: 'pt-BR'
-title: 'Blog do Zabin'
+title: 'Matheus Zabin'
 contentDir: Blog
 theme: 
   - 'github.com/theNewDynamic/gohugo-theme-ananke'
