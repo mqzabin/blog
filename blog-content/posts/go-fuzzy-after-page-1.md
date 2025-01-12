@@ -182,7 +182,7 @@ E claro, é possível aplicar as mais variadas instruções para construir algum
 
 Entretanto, como essas transformações criam novos caminhos de execução (que o teste fuzzy está tentando explorar), possivelmente estamos perdendo algum grau de eficiência para atingir os formatos esperados pelo nosso software. But still...
 
-# O pacote `mqzabin/fuzzdecimal`
+# O pacote [`mqzabin/fuzzdecimal`](https://github.com/mqzabin/fuzzdecimal)
 
 No mundo financeiro é muito comum que representemos números decimais utilizando estruturas complexas que garantam uma precisão absoluta nas operações matemáticas.
 
