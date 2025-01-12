@@ -101,27 +101,27 @@ Por exemplo, digamos que a aplicação possua um enumerador de `PaymentMethod` c
 type PaymentMethod uint8
 
 const (
-	PaymentTypeCreditCard PaymentMethod = iota
-	PaymentTypeDebitCard
-	PaymentTypeCash
+	PaymentMethodCreditCard PaymentMethod = iota
+	PaymentMethodDebitCard
+	PaymentMethodCash
 )
 
 var (
-	ErrInvalidType = errors.New("invalid payment method")
+	ErrInvalidPaymentMethod = errors.New("invalid payment method")
 
 	StringToPaymentMethod = map[string]PaymentMethod{
-		 "credit_card": PaymentTypeCreditCard,
-		 "debit_card": PaymentTypeDebitCard,
-		 "cash": PaymentTypeCash,
+		 "credit_card": PaymentMethodCreditCard,
+		 "debit_card": PaymentMethodDebitCard,
+		 "cash": PaymentMethodCash,
 	}
 	PaymentMethodToString = map[PaymentMethod]string{
-		PaymentTypeCreditCard: "credit_card",
-		PaymentTypeDebitCard: "debit_card",
-		PaymentTypeCash: "cash",
+		PaymentMethodCreditCard: "credit_card",
+		PaymentMethodDebitCard: "debit_card",
+		PaymentMethodCash: "cash",
 	}
 )
 
-func NewPaymentTypeFromString(s string) (PaymentMethod, error) {
+func NewPaymentMethodFromString(s string) (PaymentMethod, error) {
 	pm, valid := StringToPaymentMethod[s]
 	if !valid {
 		return 0, ErrInvalidType

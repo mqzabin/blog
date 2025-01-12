@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "blog-content/posts/03 - Testes Fuzzy em Golang - Além da página 1.md",
+                "file": "blog-content/posts/go-fuzzy-beyond-page-1.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "03 - Testes Fuzzy em Golang - Além da página 1"
+              "title": "go-fuzzy-beyond-page-1"
             }
           }
         ]
@@ -93,7 +93,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "blog-content/posts/03 - Testes Fuzzy em Golang - Além da página 1.md",
+                "file": "blog-content/posts/go-fuzzy-beyond-page-1.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +103,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for 03 - Testes Fuzzy em Golang - Além da página 1"
+              "title": "Backlinks for go-fuzzy-beyond-page-1"
             }
           },
           {
@@ -161,8 +161,10 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "f4d5a67425488d0b",
+  "active": "64d8399eb29d116d",
   "lastOpenFiles": [
+    "blog-content/posts/how-to-represent-currency.md",
+    "blog-content/posts/taylor-series-interest-rates.md",
     "Pasted image 20241229123515.png",
     "blog-content/posts/03 - Testes Fuzzy em Golang - Além da página 1.md",
     "blog-content/posts/01 - como representar valores monetários.md",
