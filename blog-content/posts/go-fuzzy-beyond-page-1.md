@@ -145,14 +145,14 @@ func FuzzFromEnum(f *testing.F) {
 	})
 
 
-	getPaymentMethod := func(t *testing.T, seed int) PaymentMethod {
+	getPaymentMethod := func(t *testing.T, seed uint) PaymentMethod {
 		t.Helper()
 
 		return PaymentMethod(seed % len(paymentMethods))
 	}
 
 
-	f.Fuzz(func(t *testing.T, enum int) {
+	f.Fuzz(func(t *testing.T, enum uint) {
 		pm := getPaymentMethod(t, enum)
 
 		// Do some stuff with pm
