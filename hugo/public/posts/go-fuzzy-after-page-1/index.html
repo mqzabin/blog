@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Testes Fuzzy em Golang - Além da página 1 | zabin&#39;s blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="Introdução
+O Go 1.18 introduziu o suporte à testes fuzzy, e como sempre, uma série de blogposts e vídeos foram produzidos explorando a nova funcionalidade.
+O propósito dos testes fuzzy é utilizar as teorias matemáticas/computacionais da lógica fuzzy para explorar caminhos de execução do seu código automaticamente, sem necessariamente precisar de algum input escrito manualmente.
+Mas se você já leu alguma dessas explorações de testes fuzzy em Go, já conhece qual o propósito dos testes fuzzy e provavelmente notou que a maioria dos exemplos giram em torno de testar funções que possuem alguma propriedade matemática/computacional especial.">
+<meta name="author" content="">
+<link rel="canonical" href="//localhost:1313/posts/go-fuzzy-after-page-1/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.fc220c15db4aef0318bbf30adc45d33d4d7c88deff3238b23eb255afdc472ca6.css" integrity="sha256-/CIMFdtK7wMYu/MK3EXTPU18iN7/MjiyPrJVr9xHLKY=" rel="preload stylesheet" as="style">
+<link rel="icon" href="//localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="//localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="//localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="//localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="//localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="//localhost:1313/posts/go-fuzzy-after-page-1/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['$$', '$$']],
+      inlineMath: [['$', '$']]
+    }
+  };
+</script>
+
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="//localhost:1313/" accesskey="h" title="zabin&#39;s blog (Alt + H)">zabin&#39;s blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Testes Fuzzy em Golang - Além da página 1
+    </h1>
+    <div class="post-meta"><span title='2025-01-12 12:00:00 -0300 -03'>January 12, 2025</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="introdução">Introdução<a hidden class="anchor" aria-hidden="true" href="#introdução">#</a></h1>
+<p>O Go 1.18 introduziu o suporte à <a href="https://go.dev/doc/security/fuzz/">testes fuzzy</a>, e como sempre, uma série de blogposts e vídeos foram produzidos explorando a nova funcionalidade.</p>
+<p>O propósito dos testes fuzzy é utilizar as teorias matemáticas/computacionais da <a href="https://pt.wikipedia.org/wiki/L%C3%B3gica_difusa">lógica fuzzy</a> para explorar caminhos de execução do seu código automaticamente, sem necessariamente precisar de algum input escrito manualmente.</p>
+<p>Mas se você já leu alguma dessas explorações de testes fuzzy em Go, já conhece qual o propósito dos testes fuzzy e provavelmente notou que a maioria dos exemplos giram em torno de testar funções que possuem alguma propriedade matemática/computacional especial.</p>
+<p>Por exemplo, testar inversão de strings, onde aplicar a função duas vezes deve retornar o valor original (i.e. $f(f(x)) = x$ ou $f^{-1}(x) = f(x)$):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;testing&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;unicode/utf8&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Reverse</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) (<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">utf8</span>.<span style="color:#a6e22e">ValidString</span>(<span style="color:#a6e22e">s</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">New</span>(<span style="color:#e6db74">&#34;input is not valid UTF-8&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">r</span> <span style="color:#f92672">:=</span> []rune(<span style="color:#a6e22e">s</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>, len(<span style="color:#a6e22e">r</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">r</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>; <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> = <span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">j</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">r</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">r</span>[<span style="color:#a6e22e">j</span>] = <span style="color:#a6e22e">r</span>[<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">r</span>[<span style="color:#a6e22e">i</span>]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> string(<span style="color:#a6e22e">r</span>), <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">FuzzReverse</span>(<span style="color:#a6e22e">f</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">F</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Fuzz</span>(<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>, <span style="color:#a6e22e">orig</span> <span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">rev</span>, <span style="color:#a6e22e">err1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Reverse</span>(<span style="color:#a6e22e">orig</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err1</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">doubleRev</span>, <span style="color:#a6e22e">err2</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Reverse</span>(<span style="color:#a6e22e">rev</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err2</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">orig</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">doubleRev</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;Before: %q, after: %q&#34;</span>, <span style="color:#a6e22e">orig</span>, <span style="color:#a6e22e">doubleRev</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">utf8</span>.<span style="color:#a6e22e">ValidString</span>(<span style="color:#a6e22e">orig</span>) <span style="color:#f92672">&amp;&amp;</span> !<span style="color:#a6e22e">utf8</span>.<span style="color:#a6e22e">ValidString</span>(<span style="color:#a6e22e">rev</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;Reverse produced invalid UTF-8 string %q&#34;</span>, <span style="color:#a6e22e">rev</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Ou então, testar a comutatividade de uma operação (i.e. $f(a,b) = f(b, a)$), como na soma ou multiplicação de dois números:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;testing&#34;</span>  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">FuzzCommutativeOperations</span>(<span style="color:#a6e22e">f</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">F</span>) {  
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Fuzz</span>(<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>, <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">uint64</span>) {  
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">a</span><span style="color:#f92672">+</span><span style="color:#a6e22e">b</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">b</span><span style="color:#f92672">+</span><span style="color:#a6e22e">a</span> {  
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;a+b: %d, b+a: %d&#34;</span>, <span style="color:#a6e22e">a</span><span style="color:#f92672">+</span><span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">b</span><span style="color:#f92672">+</span><span style="color:#a6e22e">a</span>)  
+</span></span><span style="display:flex;"><span>       }  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">a</span><span style="color:#f92672">*</span><span style="color:#a6e22e">b</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">b</span><span style="color:#f92672">*</span><span style="color:#a6e22e">a</span> {  
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;a*b: %d, b*a: %d&#34;</span>, <span style="color:#a6e22e">a</span><span style="color:#f92672">*</span><span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">b</span><span style="color:#f92672">*</span><span style="color:#a6e22e">a</span>)  
+</span></span><span style="display:flex;"><span>       }  
+</span></span><span style="display:flex;"><span>    })  
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>(o código acima é só um exemplo sem utilizar bibliotecas externas, mas essas operações poderiam vir de um pacote, e operar alguma estrutura especial)</p>
+<p>O problema é que essas propriedades são muito raras em problemas reais que tentamos resolver com desenvolvimento de software, fazendo com que testes fuzzy pareçam meio inúteis.</p>
+<p>Entretanto, a ideia deste artigo é explorar algumas formas diferentes de utilizar testes fuzzy. Aumentar o repertório de usos faz com que seja mais fácil enxergar onde os softwares &ldquo;mais clássicos&rdquo; podem se encaixar com API fuzzy do Go.</p>
+<h1 id="superando-as-limitações-da-api-do-go">Superando as limitações da API do Go<a hidden class="anchor" aria-hidden="true" href="#superando-as-limitações-da-api-do-go">#</a></h1>
+<p>O método <code>(*testing.F).Fuzz</code> recebe um parâmetro do tipo <code>interface{}</code>/<code>any</code>. Esse parâmetro deve ser uma função que recebe um <code>*testing.T</code> e uma sequência customizável de parâmetros de tipos primitivos.</p>
+<p>Os tipos aceitos como parâmetros são:</p>
+<ul>
+<li><code>string</code>, <code>[]byte</code></li>
+<li><code>int</code>, <code>int8</code>, <code>int16</code>, <code>int32</code>/<code>rune</code>, <code>int64</code></li>
+<li><code>uint</code>, <code>uint8</code>/<code>byte</code>, <code>uint16</code>, <code>uint32</code>, <code>uint64</code></li>
+<li><code>float32</code>, <code>float64</code></li>
+<li><code>bool</code></li>
+</ul>
+<p>A primeira vista, parece muito dificil encaixar <code>structs</code> customizadas de um software comum dentro desses tipos primitivos.</p>
+<p>Porém, podemos compor esses tipos, transformando os parametros em valores significativos para nosso software.</p>
+<p>Por exemplo, digamos que a aplicação possua um enumerador de <code>PaymentMethod</code> como:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">PaymentMethod</span> <span style="color:#66d9ef">uint8</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">PaymentTypeCreditCard</span> <span style="color:#a6e22e">PaymentMethod</span> = <span style="color:#66d9ef">iota</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">PaymentTypeDebitCard</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">PaymentTypeCash</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ErrInvalidType</span> = <span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">New</span>(<span style="color:#e6db74">&#34;invalid payment method&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">StringToPaymentMethod</span> = <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#a6e22e">PaymentMethod</span>{
+</span></span><span style="display:flex;"><span>		 <span style="color:#e6db74">&#34;credit_card&#34;</span>: <span style="color:#a6e22e">PaymentTypeCreditCard</span>,
+</span></span><span style="display:flex;"><span>		 <span style="color:#e6db74">&#34;debit_card&#34;</span>: <span style="color:#a6e22e">PaymentTypeDebitCard</span>,
+</span></span><span style="display:flex;"><span>		 <span style="color:#e6db74">&#34;cash&#34;</span>: <span style="color:#a6e22e">PaymentTypeCash</span>,
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">PaymentMethodToString</span> = <span style="color:#66d9ef">map</span>[<span style="color:#a6e22e">PaymentMethod</span>]<span style="color:#66d9ef">string</span>{
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">PaymentTypeCreditCard</span>: <span style="color:#e6db74">&#34;credit_card&#34;</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">PaymentTypeDebitCard</span>: <span style="color:#e6db74">&#34;debit_card&#34;</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">PaymentTypeCash</span>: <span style="color:#e6db74">&#34;cash&#34;</span>,
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewPaymentTypeFromString</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">PaymentMethod</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">pm</span>, <span style="color:#a6e22e">valid</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">StringToPaymentMethod</span>[<span style="color:#a6e22e">s</span>]
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">valid</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">ErrInvalidType</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">pm</span>, <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">pm</span> <span style="color:#a6e22e">PaymentMethod</span>) <span style="color:#a6e22e">String</span>() <span style="color:#66d9ef">string</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">PaymentMethodToString</span>[<span style="color:#a6e22e">pm</span>]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Se você deseja gerar um <code>PaymentMethod</code> como input do teste fuzzy, você pode fazer algo como:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">FuzzFromEnum</span>(<span style="color:#a6e22e">f</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">F</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">paymentMethods</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">slices</span>.<span style="color:#a6e22e">SortedStableFunc</span>(<span style="color:#a6e22e">maps</span>.<span style="color:#a6e22e">Keys</span>(<span style="color:#a6e22e">PaymentMethodToString</span>), <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">a</span> <span style="color:#a6e22e">PaymentMethod</span>, <span style="color:#a6e22e">b</span> <span style="color:#a6e22e">PaymentMethod</span>) <span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> int(<span style="color:#a6e22e">a</span>) <span style="color:#f92672">-</span> int(<span style="color:#a6e22e">b</span>)
+</span></span><span style="display:flex;"><span>	})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">getPaymentMethod</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>, <span style="color:#a6e22e">seed</span> <span style="color:#66d9ef">int</span>) <span style="color:#a6e22e">PaymentMethod</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Helper</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">PaymentMethod</span>(<span style="color:#a6e22e">seed</span> <span style="color:#f92672">%</span> len(<span style="color:#a6e22e">paymentMethods</span>))
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Fuzz</span>(<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>, <span style="color:#a6e22e">enum</span> <span style="color:#66d9ef">int</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">pm</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">getPaymentMethod</span>(<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">enum</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// Do some stuff with pm
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	})
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><em>(os detalhes de implementação do código não importam para a mensagem, existem infinitas formas de abordar o problema)</em></p>
+<p>Obviamente, isso pode ser feito com slices, mapas, switches, etc.</p>
+<p>Ou caso necessite de uma string numérica, o teste pode:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">FuzzyNumericString</span>(<span style="color:#a6e22e">f</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">F</span>) {  
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Fuzz</span>(<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>, <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">uint64</span>) {  
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">numericString</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">FormatUint</span>(<span style="color:#a6e22e">a</span>, <span style="color:#ae81ff">10</span>)  
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">numericString</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">FormatUint</span>(<span style="color:#a6e22e">b</span>, <span style="color:#ae81ff">10</span>)  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>       <span style="color:#75715e">// Do some stuff with numericString.  
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    })  
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>E claro, é possível aplicar as mais variadas instruções para construir alguma string dentro de um formato específico.</p>
+<p>Entretanto, como essas transformações criam novos caminhos de execução (que o teste fuzzy está tentando explorar), possivelmente estamos perdendo algum grau de eficiência para atingir os formatos esperados pelo nosso software. But still&hellip;</p>
+<h1 id="o-pacote-mqzabinfuzzdecimal">O pacote <code>mqzabin/fuzzdecimal</code><a hidden class="anchor" aria-hidden="true" href="#o-pacote-mqzabinfuzzdecimal">#</a></h1>
+<p>No mundo financeiro é muito comum que representemos números decimais utilizando estruturas complexas que garantam uma precisão absoluta nas operações matemáticas.</p>
+<p>Recentemente me aventurei em criar um pacote para representar e realizar operações com números decimais de precisão arbitrária, utilizando zero alocações (esse é o selling point do pacote).</p>
+<p>Porém, quando estamos lidando com valores numéricos, existe um grande desafio na criação de testes, dado que existem infinitas possibilidades de input. Mesmo sendo possível analisar os caminhos de execução e escrever inputs que cubram esses caminhos, quando chegamos em operações não-básicas que utilizam métodos iterativos (por exemplo divisão e exponenciação), é muita loucura manter o tracking de todos os possíveis caminhos.</p>
+<p>Essa dificuldade (de forma isolada) parece ser facilmente resolvida pelos testes fuzzy do Go. Porém, mesmo que existam inputs auto-gerados que percorram caminhos diferentes do código, como será feita a detecção de erros de cálculo?</p>
+<p>É necessário ter um valor esperado da operação, e a API fuzzy não parece ajudar nesse aspecto.</p>
+<p>Porém, como estamos lidando com matemática e as operações são bem definidas em qualquer lugar do mundo, posso utilizar outro pacote de decimais de precisão arbitrária como valor esperado da minha operação.</p>
+<p>Na companhia onde trabalho, é bem comum utilizarmos o <code>github.com/shopspring/decimal</code>. Esse pacote é bem conhecido, usado e testado, e possuía todas as operações que estavam implementadas no pacote que eu estava desenvolvendo.</p>
+<p>Foi ai então que decidi criar testes fuzzy comparando resultados da minha biblioteca com a <code>shopspring/decimal</code>. A lógica dos testes é a seguinte:</p>
+<ul>
+<li>Os testes recebem parâmetros <code>uint64</code> suficientes para criar X números suficientemente grandes.</li>
+<li>Os <code>uint64</code> são combinados em strings numéricas que podem ser convertidas para decimais de precisão arbitrária de ambas as bibliotecas (pelo meu pacote, e pelo <code>shopspring/decimal</code>).</li>
+<li>Efetuo a operação testada pelo meu pacote e obtenho um resultado A.</li>
+<li>Efetuo a operação testada pelo <code>shopspring/decimal</code> e obtenho um resultado B.</li>
+<li>Normalizo ambos os resultados para uma string de precisão fixa (dado que minha biblioteca não tem precisão dinâmica/&ldquo;infinita&rdquo;).</li>
+<li>Comparo os resultados e falho o teste fuzzy caso eles tenham divergências.</li>
+</ul>
+<p>Com esses passos, consegui testar todas as operações das funções expostas pelo meu pacote sem escrever sequer um caso de teste.</p>
+<p>Depois de evoluir meu pacote de decimais e iniciar outros projetos (relacionados à matemática), notei que precisaria extrair essa lógica de testes fuzzy com decimais de precisão arbitrária para ser reutilizado nos outros projetos.</p>
+<p>Foi então que escrevi o pacote <a href="https://github.com/mqzabin/fuzzdecimal">github.com/mqzabin/fuzzdecimal</a>, que expõe uma API simples para realizar testes com decimais de precisão arbitrária sem muito setup e funções auxiliares.</p>
+<p>Exemplo de como ficou os testes de adição e subtração do meu pacote:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">FuzzAddSub</span>(<span style="color:#a6e22e">f</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">F</span>) {  
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">parseDecimal</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">fuzzdecimal</span>.<span style="color:#a6e22e">T</span>, <span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">Currency</span>, <span style="color:#66d9ef">error</span>) {  
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Helper</span>()  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">NewFromString</span>(<span style="color:#a6e22e">s</span>)  
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">parseShopspringDecimal</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">fuzzdecimal</span>.<span style="color:#a6e22e">T</span>, <span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">decimal</span>.<span style="color:#a6e22e">Decimal</span>, <span style="color:#66d9ef">error</span>) {  
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Helper</span>()  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">decimal</span>.<span style="color:#a6e22e">NewFromString</span>(<span style="color:#a6e22e">s</span>)  
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fuzzdecimal</span>.<span style="color:#a6e22e">Fuzz</span>(<span style="color:#a6e22e">f</span>, <span style="color:#ae81ff">2</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">fuzzdecimal</span>.<span style="color:#a6e22e">T</span>) {  
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">fuzzdecimal</span>.<span style="color:#a6e22e">AsDecimalComparison2</span>(<span style="color:#a6e22e">t</span>, <span style="color:#e6db74">&#34;Add&#34;</span>, <span style="color:#a6e22e">parseDecimal</span>, <span style="color:#a6e22e">parseShopspringDecimal</span>,  
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">fuzzdecimal</span>.<span style="color:#a6e22e">T</span>, <span style="color:#a6e22e">x1</span>, <span style="color:#a6e22e">x2</span> <span style="color:#a6e22e">decimal</span>.<span style="color:#a6e22e">Decimal</span>) (<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">error</span>) {  
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Helper</span>()  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x1</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">x2</span>).<span style="color:#a6e22e">Truncate</span>(<span style="color:#a6e22e">currencyDecimalDigits</span>).<span style="color:#a6e22e">String</span>(), <span style="color:#66d9ef">nil</span>  
+</span></span><span style="display:flex;"><span>          },  
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">fuzzdecimal</span>.<span style="color:#a6e22e">T</span>, <span style="color:#a6e22e">x1</span>, <span style="color:#a6e22e">x2</span> <span style="color:#a6e22e">Currency</span>) <span style="color:#66d9ef">string</span> {  
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x1</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">x2</span>).<span style="color:#a6e22e">String</span>()  
+</span></span><span style="display:flex;"><span>          },  
+</span></span><span style="display:flex;"><span>       )  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">fuzzdecimal</span>.<span style="color:#a6e22e">AsDecimalComparison2</span>(<span style="color:#a6e22e">t</span>, <span style="color:#e6db74">&#34;Sub&#34;</span>, <span style="color:#a6e22e">parseDecimal</span>, <span style="color:#a6e22e">parseShopspringDecimal</span>,  
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">fuzzdecimal</span>.<span style="color:#a6e22e">T</span>, <span style="color:#a6e22e">x1</span>, <span style="color:#a6e22e">x2</span> <span style="color:#a6e22e">decimal</span>.<span style="color:#a6e22e">Decimal</span>) (<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">error</span>) {  
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Helper</span>()  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x1</span>.<span style="color:#a6e22e">Sub</span>(<span style="color:#a6e22e">x2</span>).<span style="color:#a6e22e">Truncate</span>(<span style="color:#a6e22e">currencyDecimalDigits</span>).<span style="color:#a6e22e">String</span>(), <span style="color:#66d9ef">nil</span>  
+</span></span><span style="display:flex;"><span>          },  
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">fuzzdecimal</span>.<span style="color:#a6e22e">T</span>, <span style="color:#a6e22e">x1</span> <span style="color:#a6e22e">Currency</span>, <span style="color:#a6e22e">x2</span> <span style="color:#a6e22e">Currency</span>) <span style="color:#66d9ef">string</span> {  
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x1</span>.<span style="color:#a6e22e">Sub</span>(<span style="color:#a6e22e">x2</span>).<span style="color:#a6e22e">String</span>()  
+</span></span><span style="display:flex;"><span>          },  
+</span></span><span style="display:flex;"><span>       )  
+</span></span><span style="display:flex;"><span>    }, <span style="color:#a6e22e">fuzzdecimal</span>.<span style="color:#a6e22e">WithAllDecimals</span>(  
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">fuzzdecimal</span>.<span style="color:#a6e22e">WithSigned</span>(),  
+</span></span><span style="display:flex;"><span>       <span style="color:#75715e">// The a+b and a-b operations will at most add 1 digit to the greatest number between a and b.  
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>       <span style="color:#75715e">// So, we should ensure that the greatest number has at most naturalMaxLen-1 digits.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>       <span style="color:#a6e22e">fuzzdecimal</span>.<span style="color:#a6e22e">WithMaxSignificantDigits</span>(<span style="color:#a6e22e">naturalMaxLen</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>),  
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">fuzzdecimal</span>.<span style="color:#a6e22e">WithDecimalPointAt</span>(<span style="color:#a6e22e">currencyDecimalDigits</span>),  
+</span></span><span style="display:flex;"><span>    ))  
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Apesar da implementação utilizar algumas reflections, como o escopo é bem pequeno (somente números decimais), o código ficou fácil de entender, e a API ficou bem limpa dado que a lógica de reflections ficou completamente abstraída.</p>
+<p>Leia o README do projeto para conhecer as demais funções.</p>
+<h1 id="possibilidades-futuras-sonhando-alto">Possibilidades futuras (sonhando alto)<a hidden class="anchor" aria-hidden="true" href="#possibilidades-futuras-sonhando-alto">#</a></h1>
+<p>Seguindo a mesma lógica do pacote <a href="https://github.com/mqzabin/fuzzdecimal">github.com/mqzabin/fuzzdecimal</a>, é possível desenvolver construtores de estruturas complexas mais genéricas.</p>
+<p>É possível criar um pacote que tenha uma API que suporte transformações comuns, por exemplo:</p>
+<ul>
+<li>UUIDs</li>
+<li>Strings alfanuméricas</li>
+<li>Números decimais</li>
+<li>Enums</li>
+<li>Números primitivos com intervalos definidos.</li>
+</ul>
+<p>Isso seria muito útil para diversos testes nas camadas de domínio de nossas aplicações.</p>
+<p>Claro que tudo isso é apenas um esboço, mas podemos pensar em uma API que seja relativamente simples, e que forneça todas essas facilidades. Considerando o novo pacote como <code>newfuzzlib</code>, poderíamos ter algo como:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">FuzzUserPurchase</span>(<span style="color:#a6e22e">f</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">F</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Defined at your domain packages.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">type</span> (
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">User</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">ID</span> 						<span style="color:#a6e22e">uuid</span>.<span style="color:#a6e22e">UUID</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">Name</span> 					<span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">Age</span>  					<span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">TotalPurchasesAmount</span> 	<span style="color:#a6e22e">shopspring</span>.<span style="color:#a6e22e">Decimal</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Purchase</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">ID</span> 		<span style="color:#a6e22e">uuid</span>.<span style="color:#a6e22e">UUID</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">UserID</span> 	<span style="color:#a6e22e">uuid</span>.<span style="color:#a6e22e">UUID</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">Amount</span> 	<span style="color:#a6e22e">shopspring</span>.<span style="color:#a6e22e">Decimal</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">newfuzzlib</span>.<span style="color:#a6e22e">Fuzz</span>(<span style="color:#a6e22e">f</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>, <span style="color:#a6e22e">user</span> <span style="color:#a6e22e">User</span>, <span style="color:#a6e22e">purchase</span> <span style="color:#a6e22e">Purchase</span>) {
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// Do some stuff with user and purchase.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		},
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// User
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">newfuzzlib</span>.<span style="color:#a6e22e">ParamStruct</span>(<span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">newfuzzlib</span>.<span style="color:#a6e22e">FieldUUID</span>(<span style="color:#e6db74">&#34;ID&#34;</span>,
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">newfuzzlib</span>.<span style="color:#a6e22e">UUID</span>(),
+</span></span><span style="display:flex;"><span>			),
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">newfuzzlib</span>.<span style="color:#a6e22e">FieldString</span>(<span style="color:#e6db74">&#34;Name&#34;</span>,
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">newfuzzlib</span>.<span style="color:#a6e22e">MaxLength</span>(<span style="color:#ae81ff">100</span>),
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">newfuzzlib</span>.<span style="color:#a6e22e">AlphaNumeric</span>(),
+</span></span><span style="display:flex;"><span>			),
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">newfuzzlib</span>.<span style="color:#a6e22e">FieldInt</span>(<span style="color:#e6db74">&#34;Age&#34;</span>,
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">newfuzzlib</span>.<span style="color:#a6e22e">Min</span>(<span style="color:#ae81ff">0</span>),
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">newfuzzlib</span>.<span style="color:#a6e22e">Max</span>(<span style="color:#ae81ff">100</span>),
+</span></span><span style="display:flex;"><span>			),
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">newfuzzlib</span>.<span style="color:#a6e22e">FieldDecimal</span>(<span style="color:#e6db74">&#34;TotalPurchasesAmount&#34;</span>,
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>, <span style="color:#a6e22e">str</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">shopspring</span>.<span style="color:#a6e22e">Decimal</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>					<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">shopspring</span>.<span style="color:#a6e22e">NewFromString</span>(<span style="color:#a6e22e">str</span>)
+</span></span><span style="display:flex;"><span>				},
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">newfuzzlib</span>.<span style="color:#a6e22e">MaxSignificantDigits</span>(<span style="color:#ae81ff">10</span>),
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">newfuzzlib</span>.<span style="color:#a6e22e">MaxDecimalDigits</span>(<span style="color:#ae81ff">2</span>),
+</span></span><span style="display:flex;"><span>			),
+</span></span><span style="display:flex;"><span>		),
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// Purchase
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">newfuzzlib</span>.<span style="color:#a6e22e">ParamStruct</span>(<span style="color:#ae81ff">2</span>,
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">newfuzzlib</span>.<span style="color:#a6e22e">FieldUUID</span>(<span style="color:#e6db74">&#34;ID&#34;</span>,
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">newfuzzlib</span>.<span style="color:#a6e22e">V7</span>(),
+</span></span><span style="display:flex;"><span>			),
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">newfuzzlib</span>.<span style="color:#a6e22e">FieldUUID</span>(<span style="color:#e6db74">&#34;UserID&#34;</span>,
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">newfuzzlib</span>.<span style="color:#a6e22e">SameAsStructField</span>(<span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#34;ID&#34;</span>),
+</span></span><span style="display:flex;"><span>			),
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">newfuzzlib</span>.<span style="color:#a6e22e">FieldDecimal</span>(<span style="color:#e6db74">&#34;Amount&#34;</span>,
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>, <span style="color:#a6e22e">str</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">shopspring</span>.<span style="color:#a6e22e">Decimal</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>					<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">shopspring</span>.<span style="color:#a6e22e">NewFromString</span>(<span style="color:#a6e22e">str</span>)
+</span></span><span style="display:flex;"><span>				},
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">newfuzzlib</span>.<span style="color:#a6e22e">MaxSignificantDigits</span>(<span style="color:#ae81ff">10</span>),
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">newfuzzlib</span>.<span style="color:#a6e22e">MaxDecimalDigits</span>(<span style="color:#ae81ff">2</span>),
+</span></span><span style="display:flex;"><span>			),
+</span></span><span style="display:flex;"><span>		),
+</span></span><span style="display:flex;"><span>	)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Onde temos as estruturas <code>User</code> e <code>Purchase</code> sendo parâmetros do teste fuzzy, tendo as restrições dos seus campos sendo explicitamente definidas (através do índice do parâmetro).</p>
+<p>Essas ideias ficam para o futuro. Caso algum dia tenha tempo para esse novo projeto, provavelmente farei algo na linha da API que exemplifiquei acima.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="//localhost:1313/">zabin&#39;s blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
