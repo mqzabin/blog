@@ -13,10 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_index.md",
+                "file": "posts/02 - -finalmente- usando matemática para resolver problemas de computação no Golang.md",
                 "mode": "source",
                 "source": false
-              }
+              },
+              "icon": "lucide-file",
+              "title": "02 - -finalmente- usando matemática para resolver problemas de computação no Golang"
             }
           }
         ]
@@ -39,7 +41,9 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical"
-              }
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
             }
           },
           {
@@ -54,7 +58,9 @@
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical"
-              }
+              },
+              "icon": "lucide-search",
+              "title": "Search"
             }
           },
           {
@@ -62,7 +68,9 @@
             "type": "leaf",
             "state": {
               "type": "bookmarks",
-              "state": {}
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
             }
           }
         ]
@@ -85,7 +93,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_index.md",
+                "file": "posts/02 - -finalmente- usando matemática para resolver problemas de computação no Golang.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -93,7 +101,9 @@
                 "searchQuery": "",
                 "backlinkCollapsed": false,
                 "unlinkedCollapsed": true
-              }
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for 02 - -finalmente- usando matemática para resolver problemas de computação no Golang"
             }
           },
           {
@@ -102,10 +112,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "_index.md",
+                "file": "posts/02 - -finalmente- usando matemática para resolver problemas de computação no Golang.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
-              }
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from 02 - -finalmente- usando matemática para resolver problemas de computação no Golang"
             }
           },
           {
@@ -116,7 +128,9 @@
               "state": {
                 "sortOrder": "frequency",
                 "useHierarchy": true
-              }
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
             }
           },
           {
@@ -125,8 +139,10 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_index.md"
-              }
+                "file": "posts/02 - -finalmente- usando matemática para resolver problemas de computação no Golang.md"
+              },
+              "icon": "lucide-list",
+              "title": "Outline of 02 - -finalmente- usando matemática para resolver problemas de computação no Golang"
             }
           }
         ]
@@ -142,16 +158,29 @@
       "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
-      "command-palette:Open command palette": false
+      "command-palette:Open command palette": false,
+      "templater-obsidian:Templater": false,
+      "modalforms:Edit forms": false
     }
   },
-  "active": "6adf6c074b2f2f8f",
+  "active": "f5de7bb7459bd1b3",
   "lastOpenFiles": [
-    "about.md",
+    "obsidian/templates/New Post.md",
+    "posts/01 - como representar valores monetários.md",
+    "Pasted image 20240819164425.png",
+    "Pasted image 20240819164415.png",
     "_index.md",
+    "posts/01 - como representar valores monetários.sync-conflict-20240806-113230-EXLU3BW.md",
+    "posts/2024/07-July/oi.md",
+    "posts/2024/07-July/lol.md",
+    "posts/2024/07-July/tchau.md",
+    "posts/2024/07-July/example-post.md",
+    "posts/2024/07-July",
+    "obsidian/templates",
+    "obsidian",
+    "about.md",
     "posts/2024/07-july/my-first-post copy.md",
     "posts/2024/07-july/my-first-post.md",
-    "posts/2024/07-july/example-post.md",
     "posts/2024/07-july/my-first-post copy 3.md",
     "posts/2024/07-july/my-first-post copy 2.md",
     "posts/2024/07-july",

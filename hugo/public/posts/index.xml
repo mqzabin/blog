@@ -1,1 +1,22 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Matheus Zabin</title><link>http://example.org/posts/</link><description>Recent content in Posts on Matheus Zabin</description><generator>Hugo</generator><language>pt-BR</language><lastBuildDate/><atom:link href="http://example.org/posts/index.xml" rel="self" type="application/rss+xml"/></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Posts on zabin&#39;s blog</title>
+    <link>//localhost:1313/posts/</link>
+    <description>Recent content in Posts on zabin&#39;s blog</description>
+    <generator>Hugo -- 0.135.0</generator>
+    <language>pt-BR</language>
+    <lastBuildDate>Sun, 12 Jan 2025 12:00:00 -0300</lastBuildDate>
+    <atom:link href="//localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Testes Fuzzy em Golang - Além da página 1</title>
+      <link>//localhost:1313/posts/03---testes-fuzzy-em-golang---al%C3%A9m-da-p%C3%A1gina-1/</link>
+      <pubDate>Sun, 12 Jan 2025 12:00:00 -0300</pubDate>
+      <guid>//localhost:1313/posts/03---testes-fuzzy-em-golang---al%C3%A9m-da-p%C3%A1gina-1/</guid>
+      <description>&lt;h1 id=&#34;introdução&#34;&gt;Introdução&lt;/h1&gt;
+&lt;p&gt;O Go 1.18 introduziu o suporte à &lt;a href=&#34;https://go.dev/doc/security/fuzz/&#34;&gt;testes fuzzy&lt;/a&gt;, e como sempre, uma série de blogposts e vídeos foram produzidos explorando a nova funcionalidade.&lt;/p&gt;
+&lt;p&gt;O propósito dos testes fuzzy é utilizar as teorias matemáticas/computacionais da &lt;a href=&#34;https://pt.wikipedia.org/wiki/L%C3%B3gica_difusa&#34;&gt;lógica fuzzy&lt;/a&gt; para explorar caminhos de execução do seu código automaticamente, sem necessariamente precisar de algum input escrito manualmente.&lt;/p&gt;
+&lt;p&gt;Mas se você já leu alguma dessas explorações de testes fuzzy em Go, já conhece qual o propósito dos testes fuzzy e provavelmente notou que a maioria dos exemplos giram em torno de testar funções que possuem alguma propriedade matemática/computacional especial.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
