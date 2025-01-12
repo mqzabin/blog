@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto">
 
-<head>
-	<meta name="generator" content="Hugo 0.135.0"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="noindex, nofollow">
-<title>zabin&#39;s blog</title>
-
-<meta name="description" content="">
+<title>Como representar valores monetários | blog do zabin</title>
+<meta name="keywords" content="">
+<meta name="description" content="Introdução Quando você tem que especificar algum projeto que lida com valores numéricos para representar dinheiro, é necessário especificar qual será o tipo ou estrutura de dados utilizado. Essa decisão pode não ser trivial e esse artigo busca abordar algumas opções.
+Usar float (pontos flutuantes), inteiros como centavos ou alguma estrutura pronta de alguma biblioteca? Como será representado no banco de dados? E no JSON de entrada/saída da API?
+Esse artigo busca abordar quais são as principais opções, e quais suas contrapartidas.">
 <meta name="author" content="">
-<link rel="canonical" href="//localhost:1313/">
+<link rel="canonical" href="//localhost:1313/posts/01---como-representar-valores-monet%C3%A1rios/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.fc220c15db4aef0318bbf30adc45d33d4d7c88deff3238b23eb255afdc472ca6.css" integrity="sha256-/CIMFdtK7wMYu/MK3EXTPU18iN7/MjiyPrJVr9xHLKY=" rel="preload stylesheet" as="style">
 <link rel="icon" href="//localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="//localhost:1313/favicon-16x16.png">
@@ -19,8 +20,7 @@
 <link rel="mask-icon" href="//localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="//localhost:1313/index.xml">
-<link rel="alternate" hreflang="en" href="//localhost:1313/">
+<link rel="alternate" hreflang="en" href="//localhost:1313/posts/01---como-representar-valores-monet%C3%A1rios/">
 <noscript>
     <style>
         #theme-toggle,
@@ -58,9 +58,19 @@
 
     </style>
 </noscript>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['$$', '$$']],
+      inlineMath: [['$', '$']]
+    }
+  };
+</script>
+
 </head>
 
-<body class="list" id="top">
+<body class="" id="top">
 <script>
     if (localStorage.getItem("pref-theme") === "dark") {
         document.body.classList.add('dark');
@@ -75,7 +85,7 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="//localhost:1313/" accesskey="h" title="zabin&#39;s blog (Alt + H)">zabin&#39;s blog</a>
+            <a href="//localhost:1313/" accesskey="h" title="blog do zabin (Alt + H)">blog do zabin</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -103,66 +113,67 @@
         </ul>
     </nav>
 </header>
-<main class="main"> 
-<article class="first-entry home-info">
-    <header class="entry-header">
-        <h1>zabin&rsquo;s blog</h1>
-    </header>
-    <div class="entry-content">
-        I write about computer science and math.
-    </div>
-    <footer class="entry-footer">
-        <div class="social-icons" >
-    <a href="https://github.com/mqzabin" target="_blank" rel="noopener noreferrer me"
-        title="Github">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-    stroke-linecap="round" stroke-linejoin="round">
-    <path
-        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
-    </path>
-</svg>
-    </a>
-    <a href="https://x.com/mqzabin" target="_blank" rel="noopener noreferrer me"
-        title="Twitter">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-    stroke-linecap="round" stroke-linejoin="round">
-    <path
-        d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
-    </path>
-</svg>
-    </a>
-    <a href="https://www.linkedin.com/in/mqzabin/" target="_blank" rel="noopener noreferrer me"
-        title="Linkedin">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-    stroke-linecap="round" stroke-linejoin="round">
-    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-    <rect x="2" y="9" width="4" height="12"></rect>
-    <circle cx="4" cy="4" r="2"></circle>
-</svg>
-    </a>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Como representar valores monetários
+    </h1>
+    <div class="post-meta"><span title='2024-07-30 19:30:59 -0300 -03'>July 30, 2024</span>
+
 </div>
+  </header> 
+  <div class="post-content"><h1 id="introdução">Introdução<a hidden class="anchor" aria-hidden="true" href="#introdução">#</a></h1>
+<p>Quando você tem que especificar algum projeto que lida com valores numéricos para representar dinheiro, é necessário especificar qual será o tipo ou estrutura de dados utilizado. Essa decisão pode não ser trivial e esse artigo busca abordar algumas opções.</p>
+<p>Usar <em>float</em> (pontos flutuantes), inteiros como centavos ou alguma estrutura pronta de alguma biblioteca? Como será representado no banco de dados? E no JSON de entrada/saída da API?</p>
+<p>Esse artigo busca abordar quais são as principais opções, e quais suas contrapartidas. Vamos abordar a representação em três camadas:</p>
+<ul>
+<li>Em memória (i.e. na linguagem de programação).</li>
+<li>Nos contratos das APIs.</li>
+<li>No banco de dados.</li>
+</ul>
+<h1 id="em-memória">Em memória<a hidden class="anchor" aria-hidden="true" href="#em-memória">#</a></h1>
+<h2 id="pontos-flutuantes">Pontos flutuantes<a hidden class="anchor" aria-hidden="true" href="#pontos-flutuantes">#</a></h2>
+<p>Uma resposta muito comum (e ingênua) que recebo é o uso de pontos flutuantes. As linguagens geralmente tem um tipo primitivo para representação de pontos flutuantes, por exemplo:</p>
+<ul>
+<li>Golang: <code>float32</code> e <code>float64</code>.</li>
+<li>JavaScript: <code>number</code>.</li>
+<li>C/Java: <code>float</code>  e <code>double</code>.</li>
+</ul>
+<p>Para entender a escolha, precisamos explorar o que significa &ldquo;pontos flutuante&rdquo;. A estrutura de pontos flutuantes utilizam uma representação parecida com a &ldquo;notação científica&rdquo;, que aprendemos no ensino médio. Isto é, o valor é guardado em dois componentes:</p>
+<ul>
+<li><strong>(M)antissa:</strong> Valor significativo do numéro.</li>
+<li><strong>(E)xpoente:</strong> Aonde o ponto será colocado na mantissa (por isso <strong>ponto flutuante</strong>).</li>
+</ul>
+$$ M \times 10^{E} $$
+<p>A nomenclatura de &ldquo;ponto flutuante&rdquo; surge do fato de que o valor de $E$, que define aonde o ponto decimal será colocado, pode &ldquo;flutuar&rdquo; para mais ou menos.</p>
+<p>A priori, essa representação não oferece nenhum problema, já que a notação científica consegue representar qualquer número com uma precisão arbitrária.</p>
+<p>O problema aqui surge quando trazemos essa representação para dentro de um número limitado de memória. Por exemplo, quando lidamos com os 64 bits disponíveis em um <code>float64</code> (ou <code>double</code>), a disposição de memória é a seguinte:</p>
+<ul>
+<li>1 bit para o sinal (positivo/negativo).</li>
+<li>11 bits para o expoente.</li>
+<li>52 bits para a mantissa.</li>
+</ul>
+<p>Totalizando os 64 bits disponíveis.</p>
+<h2 id="números-inteiros">Números inteiros<a hidden class="anchor" aria-hidden="true" href="#números-inteiros">#</a></h2>
+<h2 id="decimais-de-precisão-arbitrária">Decimais de precisão arbitrária<a hidden class="anchor" aria-hidden="true" href="#decimais-de-precisão-arbitrária">#</a></h2>
+<h1 id="no-contratos-das-apis">No contratos das APIs<a hidden class="anchor" aria-hidden="true" href="#no-contratos-das-apis">#</a></h1>
+<h1 id="no-banco-de-dados">No banco de dados<a hidden class="anchor" aria-hidden="true" href="#no-banco-de-dados">#</a></h1>
 
-    </footer>
-</article>
 
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Testes Fuzzy em Golang - Além da página 1
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Introdução O Go 1.18 introduziu o suporte à testes fuzzy, e como sempre, uma série de blogposts e vídeos foram produzidos explorando a nova funcionalidade.
-O propósito dos testes fuzzy é utilizar as teorias matemáticas/computacionais da lógica fuzzy para explorar caminhos de execução do seu código automaticamente, sem necessariamente precisar de algum input escrito manualmente.
-Mas se você já leu alguma dessas explorações de testes fuzzy em Go, já conhece qual o propósito dos testes fuzzy e provavelmente notou que a maioria dos exemplos giram em torno de testar funções que possuem alguma propriedade matemática/computacional especial.
-...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-01-12 12:00:00 -0300 -03'>January 12, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to Testes Fuzzy em Golang - Além da página 1" href="//localhost:1313/posts/03---testes-fuzzy-em-golang---al%C3%A9m-da-p%C3%A1gina-1/"></a>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
 </article>
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="//localhost:1313/">zabin&#39;s blog</a></span> · 
+        <span>&copy; 2024 <a href="//localhost:1313/">blog do zabin</a></span> · 
 
     <span>
         Powered by

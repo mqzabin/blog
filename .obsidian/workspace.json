@@ -1,24 +1,24 @@
 {
   "main": {
-    "id": "3b453daca6374026",
+    "id": "0d70645da70ce9a4",
     "type": "split",
     "children": [
       {
-        "id": "25757294b004cb3a",
+        "id": "15db79c7df6c0534",
         "type": "tabs",
         "children": [
           {
-            "id": "f5de7bb7459bd1b3",
+            "id": "f4d5a67425488d0b",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "posts/02 - -finalmente- usando matemática para resolver problemas de computação no Golang.md",
+                "file": "blog-content/posts/03 - Testes Fuzzy em Golang - Além da página 1.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "02 - -finalmente- usando matemática para resolver problemas de computação no Golang"
+              "title": "03 - Testes Fuzzy em Golang - Além da página 1"
             }
           }
         ]
@@ -27,15 +27,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "e4daf6907e58f8ac",
+    "id": "884ea62ae6a6e534",
     "type": "split",
     "children": [
       {
-        "id": "d188036048412143",
+        "id": "37b8b16ab89ba4bc",
         "type": "tabs",
         "children": [
           {
-            "id": "6adf6c074b2f2f8f",
+            "id": "64d8399eb29d116d",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -47,7 +47,7 @@
             }
           },
           {
-            "id": "83e407e22216118f",
+            "id": "bb1633511a0d8721",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -64,7 +64,7 @@
             }
           },
           {
-            "id": "ad5dde3f71b81509",
+            "id": "bd4214d76bd67632",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -80,20 +80,20 @@
     "width": 300
   },
   "right": {
-    "id": "0d52fe40a866f813",
+    "id": "ed20fd57be37b2ed",
     "type": "split",
     "children": [
       {
-        "id": "b1f4cf948a2f249f",
+        "id": "7a8604af93a8b609",
         "type": "tabs",
         "children": [
           {
-            "id": "58227f8eb5e1122b",
+            "id": "7c81bbe9bf601e56",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "posts/02 - -finalmente- usando matemática para resolver problemas de computação no Golang.md",
+                "file": "blog-content/posts/03 - Testes Fuzzy em Golang - Além da página 1.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,16 +103,16 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for 02 - -finalmente- usando matemática para resolver problemas de computação no Golang"
+              "title": "Backlinks for 03 - Testes Fuzzy em Golang - Além da página 1"
             }
           },
           {
-            "id": "d8e3ead8767f5ac5",
+            "id": "032e5472c3888d1c",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "posts/02 - -finalmente- usando matemática para resolver problemas de computação no Golang.md",
+                "file": "blog-content/posts/02 - -finalmente- usando matemática para resolver problemas de computação no Golang.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -121,7 +121,7 @@
             }
           },
           {
-            "id": "eb98ee35150601ee",
+            "id": "f0eefe6c32caecff",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -134,12 +134,12 @@
             }
           },
           {
-            "id": "759541d2acf7dd7b",
+            "id": "e89caa14eaaf5af5",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "posts/02 - -finalmente- usando matemática para resolver problemas de computação no Golang.md"
+                "file": "blog-content/posts/02 - -finalmente- usando matemática para resolver problemas de computação no Golang.md"
               },
               "icon": "lucide-list",
               "title": "Outline of 02 - -finalmente- usando matemática para resolver problemas de computação no Golang"
@@ -158,33 +158,31 @@
       "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
-      "command-palette:Open command palette": false,
-      "templater-obsidian:Templater": false,
-      "modalforms:Edit forms": false
+      "command-palette:Open command palette": false
     }
   },
-  "active": "f5de7bb7459bd1b3",
+  "active": "f4d5a67425488d0b",
   "lastOpenFiles": [
-    "obsidian/templates/New Post.md",
-    "posts/01 - como representar valores monetários.md",
-    "Pasted image 20240819164425.png",
-    "Pasted image 20240819164415.png",
-    "_index.md",
-    "posts/01 - como representar valores monetários.sync-conflict-20240806-113230-EXLU3BW.md",
-    "posts/2024/07-July/oi.md",
-    "posts/2024/07-July/lol.md",
-    "posts/2024/07-July/tchau.md",
-    "posts/2024/07-July/example-post.md",
-    "posts/2024/07-July",
-    "obsidian/templates",
-    "obsidian",
-    "about.md",
-    "posts/2024/07-july/my-first-post copy.md",
-    "posts/2024/07-july/my-first-post.md",
-    "posts/2024/07-july/my-first-post copy 3.md",
-    "posts/2024/07-july/my-first-post copy 2.md",
-    "posts/2024/07-july",
-    "posts/2024",
-    "posts"
+    "Pasted image 20241229123515.png",
+    "blog-content/posts/03 - Testes Fuzzy em Golang - Além da página 1.md",
+    "blog-content/posts/01 - como representar valores monetários.md",
+    "magefiles/mage_output_file.go",
+    "hugo/public/posts/03---testes-fuzzy-em-golang---além-da-página-1/index.html",
+    "hugo/public/posts/03---testes-fuzzy-em-golang---além-da-página-1",
+    "hugo/public/posts/assets/02-taylor-series-generic.gif",
+    "hugo/public/posts/assets/02-taylor-series-func.png",
+    "hugo/public/posts/assets",
+    "blog-content/posts/02 - Usando Séries de Taylor para resolver cálculos de taxas de juros no Golang.md",
+    "blog-content/posts/assets/02-taylor-series-func.png",
+    "blog-content/posts/assets/02-taylor-series-generic.gif",
+    "blog-content/_index.md",
+    "Pasted image 20241229115137.png",
+    "Pasted image 20241229115538.png",
+    "blog-content/posts/assets/02.md",
+    "Pasted image 20241228141920.png",
+    "Pasted image 20241228141910.png",
+    "Pasted image 20241229113448.png",
+    "blog-content/posts/assets",
+    "blog-content/posts/taylor-series-generic.gif.crdownload"
   ]
 }
