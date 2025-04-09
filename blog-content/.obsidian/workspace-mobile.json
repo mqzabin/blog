@@ -13,10 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "posts/01 - como representar valores monetários.md",
+                "file": "posts/how-to-represent-currency.md",
                 "mode": "source",
                 "source": false
-              }
+              },
+              "icon": "lucide-file",
+              "title": "how-to-represent-currency"
             }
           }
         ]
@@ -34,8 +36,11 @@
         "state": {
           "type": "file-explorer",
           "state": {
-            "sortOrder": "alphabetical"
-          }
+            "sortOrder": "alphabetical",
+            "autoReveal": false
+          },
+          "icon": "lucide-folder-closed",
+          "title": "Files"
         }
       },
       {
@@ -50,7 +55,9 @@
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical"
-          }
+          },
+          "icon": "lucide-search",
+          "title": "Search"
         }
       },
       {
@@ -60,8 +67,12 @@
           "type": "tag",
           "state": {
             "sortOrder": "frequency",
-            "useHierarchy": true
-          }
+            "useHierarchy": true,
+            "showSearch": false,
+            "searchQuery": ""
+          },
+          "icon": "lucide-tags",
+          "title": "Tags"
         }
       },
       {
@@ -69,7 +80,9 @@
         "type": "leaf",
         "state": {
           "type": "bookmarks",
-          "state": {}
+          "state": {},
+          "icon": "lucide-bookmark",
+          "title": "Bookmarks"
         }
       }
     ],
@@ -85,7 +98,7 @@
         "state": {
           "type": "backlink",
           "state": {
-            "file": "posts/01 - como representar valores monetários.md",
+            "file": "posts/how-to-represent-currency.md",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
@@ -93,7 +106,9 @@
             "searchQuery": "",
             "backlinkCollapsed": false,
             "unlinkedCollapsed": true
-          }
+          },
+          "icon": "links-coming-in",
+          "title": "Backlinks"
         }
       },
       {
@@ -102,10 +117,12 @@
         "state": {
           "type": "outgoing-link",
           "state": {
-            "file": "posts/01 - como representar valores monetários.md",
+            "file": "posts/how-to-represent-currency.md",
             "linksCollapsed": false,
             "unlinkedCollapsed": true
-          }
+          },
+          "icon": "links-going-out",
+          "title": "Outgoing links"
         }
       },
       {
@@ -114,8 +131,13 @@
         "state": {
           "type": "outline",
           "state": {
-            "file": "posts/01 - como representar valores monetários.md"
-          }
+            "file": "posts/how-to-represent-currency.md",
+            "followCursor": false,
+            "showSearch": false,
+            "searchQuery": ""
+          },
+          "icon": "lucide-list",
+          "title": "Outline"
         }
       }
     ],
@@ -135,6 +157,7 @@
   },
   "active": "5744e2c3331f268a",
   "lastOpenFiles": [
+    "posts/taylor-series-interest-rates.md",
     "posts/01 - como representar valores monetários.sync-conflict-20240806-113230-EXLU3BW.md",
     "obsidian/templates/New Post.md",
     "posts/2024",

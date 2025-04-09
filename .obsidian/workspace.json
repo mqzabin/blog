@@ -11,14 +11,10 @@
             "id": "f4d5a67425488d0b",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "blog-content/posts/go-fuzzy-beyond-page-1.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "go-fuzzy-beyond-page-1"
+              "title": "New tab"
             }
           }
         ]
@@ -40,7 +36,8 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical"
+                "sortOrder": "alphabetical",
+                "autoReveal": false
               },
               "icon": "lucide-folder-closed",
               "title": "Files"
@@ -93,7 +90,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "blog-content/posts/go-fuzzy-beyond-page-1.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +99,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for go-fuzzy-beyond-page-1"
+              "title": "Backlinks"
             }
           },
           {
@@ -163,29 +159,38 @@
   },
   "active": "f4d5a67425488d0b",
   "lastOpenFiles": [
-    "blog-content/posts/go-fuzzy-beyond-page-1.md~",
-    "blog-content/posts/how-to-represent-currency.md",
+    "hugo/public/pt-br/index.xml",
+    "hugo/public/pt-br/tags/index.xml",
+    "hugo/public/pt-br/posts/index.xml",
+    "hugo/public/pt-br/categories/index.xml",
+    "hugo/public/pt-br/posts/go-fuzzy-beyond-page-1/index.html",
+    "hugo/public/pt-br/posts/go-fuzzy-beyond-page-1",
+    "hugo/public/pt-br/page/1/index.html",
+    "hugo/public/pt-br/page/1",
+    "hugo/public/pt-br/page",
+    "hugo/public/pt-br/posts/page/1/index.html",
+    "hugo/public/pt-br/posts/page/1",
+    "hugo/public/pt-br/posts/assets/taylor-series-generic.gif",
+    "hugo/public/pt-br/posts/assets/taylor-series-func.png",
     "blog-content/posts/taylor-series-interest-rates.md",
+    "blog-content/pt-BR/posts/assets/taylor-series-generic.gif",
+    "blog-content/pt-BR/posts/assets/taylor-series-func.png",
+    "blog-content/pt-BR/posts/taylor-series-interest-rates.md",
+    "blog-content/pt-BR/posts/how-to-represent-currency.md",
+    "blog-content/pt-BR/posts/go-fuzzy-beyond-page-1.md",
+    "blog-content/pt-BR/_index.md",
+    "blog-content/posts/how-to-represent-currency.md",
+    "blog-content/posts/go-fuzzy-beyond-page-1.md",
     "Pasted image 20241229123515.png",
     "blog-content/posts/03 - Testes Fuzzy em Golang - Além da página 1.md",
     "blog-content/posts/01 - como representar valores monetários.md",
-    "magefiles/mage_output_file.go",
-    "hugo/public/posts/03---testes-fuzzy-em-golang---além-da-página-1/index.html",
-    "hugo/public/posts/03---testes-fuzzy-em-golang---além-da-página-1",
     "hugo/public/posts/assets/02-taylor-series-generic.gif",
     "hugo/public/posts/assets/02-taylor-series-func.png",
-    "hugo/public/posts/assets",
     "blog-content/posts/02 - Usando Séries de Taylor para resolver cálculos de taxas de juros no Golang.md",
     "blog-content/posts/assets/02-taylor-series-func.png",
     "blog-content/posts/assets/02-taylor-series-generic.gif",
     "blog-content/_index.md",
     "Pasted image 20241229115137.png",
-    "Pasted image 20241229115538.png",
-    "blog-content/posts/assets/02.md",
-    "Pasted image 20241228141920.png",
-    "Pasted image 20241228141910.png",
-    "Pasted image 20241229113448.png",
-    "blog-content/posts/assets",
-    "blog-content/posts/taylor-series-generic.gif.crdownload"
+    "blog-content/posts/assets/02.md"
   ]
 }

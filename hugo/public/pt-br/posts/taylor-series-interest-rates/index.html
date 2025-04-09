@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-br" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Usando matemática para resolver computação de cálculo de juros | zabin&#39;s blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="Introdução
+Apesar da minha formação em matemática aplicada, atuo como engenheiro de software há vários anos e no meu dia-a-dia do trabalho são raras as situações onde acho aplicações diretas do que aprendi na universidade.
+Esse artigo conta uma situação onde consegui aplicar alguns conceitos matemáticos que foram game-changer em um projeto de investimentos que participei.
+Como esse tipo de situação é raro, acredito ser importante compartilhar para ajudar a combater aos poucos a visão de educação utilitarista, que costuma aparecer muito em candidatos que entrevisto com frases na linha de:">
+<meta name="author" content="">
+<link rel="canonical" href="//localhost:1313/pt-br/posts/taylor-series-interest-rates/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.fc220c15db4aef0318bbf30adc45d33d4d7c88deff3238b23eb255afdc472ca6.css" integrity="sha256-/CIMFdtK7wMYu/MK3EXTPU18iN7/MjiyPrJVr9xHLKY=" rel="preload stylesheet" as="style">
+<link rel="icon" href="//localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="//localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="//localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="//localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="//localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="pt-br" href="//localhost:1313/pt-br/posts/taylor-series-interest-rates/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['$$', '$$']],
+      inlineMath: [['$', '$']]
+    }
+  };
+</script>
+
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="//localhost:1313/pt-br/" accesskey="h" title="zabin&#39;s blog (Alt + H)">zabin&#39;s blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Usando matemática para resolver computação de cálculo de juros
+    </h1>
+    <div class="post-meta"><span title='2025-03-23 12:00:00 -0300 -03'>março 23, 2025</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="introdução">Introdução<a hidden class="anchor" aria-hidden="true" href="#introdução">#</a></h1>
+<p>Apesar da minha formação em matemática aplicada, atuo como engenheiro de software há vários anos e no meu dia-a-dia do trabalho são raras as situações onde acho aplicações diretas do que aprendi na universidade.</p>
+<p>Esse artigo conta uma situação onde consegui aplicar alguns conceitos matemáticos que foram <em>game-changer</em> em um projeto de investimentos que participei.</p>
+<p>Como esse tipo de situação é raro, acredito ser importante compartilhar para ajudar a combater aos poucos a visão de educação utilitarista, que costuma aparecer muito em candidatos que entrevisto com frases na linha de:</p>
+<blockquote>
+<p><em>&ldquo;Esse tipo de pergunta não faz sentido, não aplicamos isso no dia-a-dia, é inútil.&rdquo;</em></p></blockquote>
+<p>Dito isso, apesar de ser um tema que possui uma aura de &ldquo;complexo&rdquo;, os conceitos matemáticos não são tão dificéis assim e geralmente estão contidos nas ementas dos cursos superiores de computação e/ou no próprio ensino médio.</p>
+<h1 id="o-problema-do-cálculo-de-taxa-de-juros">O problema do cálculo de taxa de juros<a hidden class="anchor" aria-hidden="true" href="#o-problema-do-cálculo-de-taxa-de-juros">#</a></h1>
+<p>Há algum tempo tive a oportunidade de trabalhar em um projeto recém criado em um time de investimentos de uma fintech brasileira.</p>
+<p>Quando pensamos em investimentos, é imediato pensarmos sobre taxas de juros e os cálculos necessários para manipular esses valores, e de fato isso foi um grande desafio no início do projeto.  Por isso, foi necessário estabelecer alguma método para calcular rendimentos dos investimentos dos clientes, dado uma taxa de juros anual.</p>
+<p>Como o volume de investimentos era muito grande, o volume de uso desse método de cálculo também seria muito grande, então ele precisaria ser rápido. Além disso, nos primeiros anos de atividade da aplicação, o número de investimentos tendia a crescer muito todos os dias (apesar de várias estratégias para diminuir esta cardinalidade), então sempre tinhamos que trabalhar com previsões pessimistas de performance. Nós sabíamos que eventualmente o número de novos investimentos e investimentos resgatados se balanceariam e teríamos alguma estabilidade na  carga da aplicação, mas esse momento estava longe de chegar.</p>
+<p>Além do volume, o método teria que atender alguns requisitos importantes:</p>
+<ol>
+<li>Precisão alta, na ordem de 30 casas decimais.</li>
+<li>As taxas de juros disponibilizadas pelos órgãos reguladores eram atualizadas diariamente, e eram fornecidas como taxa de juros <strong>anual</strong>.</li>
+</ol>
+<p>Um problema que surge do ponto 2, é que apesar da taxa informada ser anual, nós precisamos aplicar juros diariamente (ou mensalmente), isto é, precisamos transformar a taxa de juros anual em uma taxa diária, considerando os dias corridos do ano.</p>
+<p>As regras desta transformação poderiam variar dependendo do tipo de ativo. A quantidade de dias considerados em um ano corrido (DCC, <em>day count convention</em>) poderia ser tanto 252 (apenas dias úteis) quanto 360 (todos os dias).</p>
+<p>A taxa de juros anual $R_{total}$, é calculada da seguinte forma:</p>
+$$ R_{\text{total}} = \Bigg( \prod_{i=0}^{c} \big(1+R_{i}\big) \Bigg) -1$$<p>
+Sendo $R_{i}$ como a taxa diária do $i$-ésimo dia passado, e $c$ como o DCC escolhido (252 ou 360).</p>
+<p>Exemplificando a fórmula, em um cenário aonde temos rendimentos de $10\%$ e $15\%$, e usando o número de dias como $c=2$, podemos ter um juros total de:</p>
+$$
+	R_{\text{total}} = ((1+10\%)(1+15\%)) - 1 = ((1.1)(1.15)) - 1 = 1.265-1 = 26.5\%
+$$<p>Como a taxa <strong>anual</strong> é obtida através da multiplicação das taxas de juros <strong>diárias</strong> do último ano corrido, em dias, precisamos fazer a &ldquo;operação inversa&rdquo;, isto é, obter uma taxa diarizada a partir da taxa anual. Para isso, podemos calcular a média geométrica da taxa anual para obter a taxa diarizada. Isto está sendo representado na seguinte expressão:</p>
+$$
+R_{\text{avg}} = \Bigg(\sqrt[c]{1+R_{\text{total}}}\Bigg)-1
+$$<p>Sendo $R_{avg}$ a taxa diária, isto é, a média geométrica da taxa do ano, considerando o DCC.</p>
+<p>Para exemplificar a fórmula, no exemplo que usamos anteriormente (rendimentos de $10\%$ e $15\%$ e número de dias $c=2$), temos:</p>
+$$
+R_{\text{avg}} = \sqrt[2]{1+26.5\%}-1 = \sqrt[2]{126.5\%}-1 \approx 1.125 - 1 = 0.125 = 12.5\%
+$$<p>Parece simples! Só precisamos conseguir calcular a raíz $n$-ésima, isso é fácil, certo? A priori, você pode pensar que essa função já está disponibilizada na standard library do <em>Golang</em>, através da <code>math.Pow(float64, float64)</code>, e então problema estaria resolvido. Porém, precisavamos de muita precisão no domínio de investimentos, sendo impossível o uso de pontos flutuantes para representar as taxas de juros.</p>
+<p>A necessidade de precisão tornou obrigatório o uso de estruturas numéricas de precisão  arbitrária (na época, usando a <a href="https://github.com/shopspring/decimal">shopspring/decimal</a>). Por esta escolha, acabamos caindo também em outros problemas:</p>
+<ol>
+<li>Converter os decimais de precisão arbitrária para pontos flutuantes para fazer o cálculo com a <code>math.Pow</code> não era uma possibilidade, dado a perda de precisão.</li>
+<li>Em geral, decimais de precisão arbitrária possuem um <em>slice</em> por de baixo dos panos, fazendo com que o custo de alocações e garbage collector seja muito alto, tanto para representações numéricas, quanto para realizar operações matemáticas.</li>
+<li>Computar a raíz de um número não é uma operação matemática básica que pode ser realizada de forma direta, geralmente sendo resolvida com VÁRIAS iterações de VÁRIAS outras operações matemáticas básicas (derretendo o GC e memória, dado o ponto 2).</li>
+<li>Na época, as libs que conhecíamos (nem mesmo o pacote decimal) não forneciam funções que computavam a raíz de números decimais genéricos.</li>
+</ol>
+<p>A escolha que tomamos para endereçar esses problemas foi a de implementarmos nós mesmos algum método matemático que calculasse a raiz $n$-ésima. Então escolhemos estudar o uso de Série de Taylor para este problema.</p>
+<h1 id="série-de-taylor">Série de Taylor<a hidden class="anchor" aria-hidden="true" href="#série-de-taylor">#</a></h1>
+<p>A ideia do artigo não é entrar nos detalhes de como funciona a Série de Taylor, mas a ideia é basicamente aproximar a função da raíz $n$-ésima de um número.</p>
+<p>A Série de Taylor fornece uma fórmula de somátorio infinito que apróxima uma função genérica $f(x)$ em torno de um valor de $x=a$. A fórmula é a seguinte:</p>
+$$ f(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!} (x-a)^n $$<p>
+A única operação &ldquo;analítica&rdquo; encontrada na fórmula é a $f^{(n)}(x)$, que significa a $n$-ésima derivada da função original. Apesar de poder ser considerada complexa, é uma operação que está dentro da ementa da maioria dos cursos de Ciência da Computação. Portanto, decidimos nos aprofundar na escolha da Série de Taylor.</p>
+<p>Como estamos falando de computação, uma soma infinita não parece muito factível. Porém, a Série de Taylor também nos fornece uma fórmula para calcular o erro do cálculo quando expandimos o somatório até um determinado valor $n$:</p>
+$$
+E_n(x) = \frac{f^{(n+1)}(a)}{(n+1)!}(x-a)^{(n+1)}
+$$<p>Isso é excelente, porque a precisão que desejamos já é conhecida, então conseguimos parar a soma infinita a medida que atingirmos um erro menor do que a precisão que desejamos.</p>
+<p>O GIF à seguir mostra como a Série de Taylor se comporta em uma função genérica à medida que aumentamos o $n$ da expansão:</p>
+<p><img loading="lazy" src="blog-content/posts/assets/taylor-series-generic.gif" alt="Taylor Series expansion"  />
+</p>
+<h1 id="encaixando-taylor-em-nosso-problema">Encaixando Taylor em nosso problema<a hidden class="anchor" aria-hidden="true" href="#encaixando-taylor-em-nosso-problema">#</a></h1>
+<p>O maior problema aqui é calcular o valor de $f^{(n)}(x)$, de forma a podermos computa-lo numericamente, então vamos explorar essa análise neste artigo.</p>
+<p>Primeiramente, pra facilitar a representação, vamos substituir a raíz $n$-ésima por uma potência equivalente:</p>
+$$ f(x) = \sqrt[c]{x} \longrightarrow f(x) = x^{\frac{1}{c}} $$<p>Neste caso, conseguimos aplicar a simples regra de derivada de monômios, onde:</p>
+$$
+f(x) = x^{m} \longrightarrow f'(x) = mx^{m-1}
+$$<p>Portanto, aplicando em nossa função e simplificando o expoente, temos:</p>
+$$
+f^{(1)}(x) = \frac{1}{c}x^{\big(\frac{1}{c} - 1\big)} \longrightarrow f^{(1)}(x) = \frac{1}{c}x^{\big(\frac{1-c}{c}\big)}
+$$<p>Agora, para gerarmos alguma &ldquo;intuição indutiva&rdquo;, vamos encontrar $f^{(2)}(x)$ a partir de $f^{(1)}(x)$:</p>
+$$ f^{(2)}(x) = (f^{(1)}(x))' $$<p>Aplicando as mesmas regras e simplificando:</p>
+$$ f^{(2)}(x) = \Bigg(\frac{1}{c}x^{\bigg(\frac{1}{c} - 1\bigg)}\Bigg)'  \longrightarrow f^{(2)}(x) = \bigg(\frac{1}{c}\bigg)\bigg(\frac{1-c}{c}\bigg)x^{\frac{1-2c}{c}} $$$$ \longrightarrow f^{(2)}(x) = \frac{1}{c^{2}}  (1 - c) x^{\frac{1-2c}{c}} $$<p>Continuando a indução, podemos calcular $f^{(3)}(x)$:</p>
+$$ f^{(3)}(x) = \bigg(f^{(2)}(x)\bigg)' $$<p>Expandindo e isolando as frações:</p>
+$$ f^{(3)}(x) = \Bigg(\bigg(\frac{1}{c}\bigg)\bigg(\frac{1-c}{c}\bigg)x^{\bigg(\frac{1-2c}{c}\bigg)}\Bigg)'  \longrightarrow f^{(3)}(x) = (\frac{1}{c})(\frac{1-c}{c})(\frac{1-2c}{c})x^{\frac{1-3c}{c}} $$$$ \longrightarrow f^{(3)}(x) = \frac{1}{c^{3}}  (1 - c)(1-2c) x^{\frac{1-3c}{c}} $$<p>Com isso conseguimos notar alguns padrões que surgirão caso continuemos derivando. Com esses padrões, podemos chegar na seguinte fórmula para um caso genérico $f^{(n)}(x)$:</p>
+$$ f^{(n)}(x) = \Bigg(\frac{1}{c^{n}} \prod_{i=1}^{n-1} (1 - ic) \Bigg) x^{\frac{1-nc}{c}} $$<p>Nesta estrutura, fica claro uma vantagem computacional muito importante:</p>
+$$ f^{(n)}(x) = \underbrace{\Bigg(\frac{1}{c^{n}} \prod_{i=1}^{n-1} (1 - ic) \Bigg)}_\text{constant} x^{\frac{1-nc}{c}} $$<p>Isto é, dado um valor $n$, o primeiro termo entre parenteses é uma constante que depende apenas de $c$ (isto é, o DCC utilizado)! Isto significa que ele pode ser pré-computado, dado que nossos valores de $c$ são pouco variados e todos conhecidos (252 e 360).</p>
+<p>Fazendo uma simples substituição de $f^{(n)}(x)$ na fórmula da Série de Taylor, temos:</p>
+$$
+f(x) = \sum_{n=0}^{\infty} \frac{\Bigg(\frac{1}{c^{n}} \prod_{i=1}^{n-1} (1 - ic) \Bigg) a^{\frac{1-nc}{c}}}{n!} (x-a)^n
+$$<p>
+E simplificando:</p>
+$$
+f(x) = \sum_{n=0}^{\infty} \frac{1}{c^{n}n!} \Bigg(\prod_{i=1}^{n-1} (1 - ic) \Bigg) a^{\frac{1-nc}{c}} (x-a)^n
+$$<p>Porém, assim como antes, temos os termos $n$, $c$ e $a$ conhecidos, portanto:</p>
+$$
+f(x) = \sum_{n=0}^{\infty} \underbrace{\frac{1}{c^{n}n!} \Bigg(\prod_{i=1}^{n-1} (1 - ic) \Bigg) a^{\frac{1-nc}{c}}}_\text{constant} (x-a)^n
+$$<p>
+Também conseguimos aproveitar do fato de todos os termos serem conhecidos e constantes para realizar uma pré-computação dos termos e economizarmos operações e alocações em tempo de execução.</p>
+<p>Porém, apesar de termos descoberto a fórmula para os termos do somatório, ainda existe um problema muito bobo que os mais atentos podem ter notado: Como vamos calcular $a^{\frac{1-nc}{c}}$?</p>
+<p>A expressão $a^{\frac{1-nc}{c}}$ pode ser re-organizada como $(a^{1-nc})^{\frac{1}{c}}$, ou $\sqrt[c]{a^{1-nc}}$, isto é, ainda teremos que calcular a raíz $n$-ésima de um número. Nós não contornamos o problema, porque a solução também necessita calcular o função original, é um questão cíclica, haha!</p>
+<p>&hellip; ou será que não?</p>
+<p>Apesar de termos entrado em pânico à primeira vista, desconsideramos um fator muito importante em nossa análise: A realidade material. Então vamos lá!</p>
+<p>Para que estamos calculando a raiz $n$-ésima? Diarizar taxas de juros; Quais são as taxas de juros que estamos diarizando? Apesar do Brasil não ser conhecido como um país de taxas de juros baixas, costumamos não passar de 20% ao ano; Qual a finalidade do valor $a$? É ser o ponto que define a redondeza na qual Série de Taylor aproximará a função original $f(x)$;</p>
+<p>Considerando isso, e nos lembrando do nosso problema original:</p>
+$$
+R_{avg} = \Bigg(\sqrt[c]{1+R_{y}}\Bigg)-1
+$$<p>Estamos na verdade calculando a raíz $n$-ésima de algum número que estará sempre orbitando o intervalo $(100\%, 120\%)$, isto é, algo entre $1$ e $1.2$.</p>
+<p>Porém, pera aí! Se podemos considerar $a = 1$ para ser nossa vizinhança de aproximação, o que acontece com a expressão $a^{\frac{1-nc}{c}}$?</p>
+<p>Lembrando da época do ensino médio, 1 elevado à qualquer número é igual à 1, isto é:</p>
+$$
+1^{\frac{1-nc}{c}} = 1
+$$<p>
+Então simplesmente MATAMOS O PROBLEMA! Nós interrompemos a questão cíclica de calcular a raíz $n$-ésima de um número e agora podemos simplesmente implementar o código!</p>
+<p>Fazendo a substituição de $a=1$ no problema original, temos:</p>
+$$
+f(x) = \sum_{n=0}^{\infty} \frac{1}{c^{n}n!} \Bigg(\prod_{i=0}^{n-1} (1 - ic) \Bigg)  (x-1)^n
+$$<p>Podermos inclusive extrair $n=0$ do somário, dado que ele é sempre uma constante 1, isto é:</p>
+$$
+\frac{1}{c^{0}0!}  (1 - 0c)   (x-1)^0 = 1
+$$$$
+f(x) = 1 +\sum_{n=1}^{\infty} \frac{1}{c^{n}n!} \Bigg(\prod_{i=1}^{n-1} (1 - ic) \Bigg)  (x-1)^n
+$$<p>Abaixo conseguimos ver uma as expansões da nossa função (para DCC 252) até $n=10$:</p>
+<p><img loading="lazy" src="blog-content/posts/assets/taylor-series-func.png" alt="02-taylor-series-func.png"  />
+</p>
+<p>Como estamos computando $\sqrt[c]{x+1} -1$, isto é $f(x+1)-1$, podemos simplificar a expressão, definindo uma $r(x)$ como:</p>
+$$
+r(x) = f(x+1) - 1 = \sqrt[c]{x+1} -1
+$$$$
+\longrightarrow r(x) = \Bigg[ 1 +\sum_{n=1}^{\infty} \frac{1}{c^{n}n!} \Bigg(\prod_{i=1}^{n-1} (1 - ic) \Bigg)  ((x+1)-1)^n \Bigg] -1
+$$<p>Obtendo:</p>
+$$
+r(x) = \sum_{n=1}^{\infty} \frac{1}{c^{n}n!} \Bigg(\prod_{i=1}^{n-1} (1 - ic) \Bigg)  x^n
+$$<p>Onde a expansão agora é em torno de $x= 0$, dado que $x +1 = 1 \longrightarrow x = 0$.</p>
+<h1 id="implementação">Implementação<a hidden class="anchor" aria-hidden="true" href="#implementação">#</a></h1>
+<p>Após uns meses da minha implementação da expansão de Taylor no projeto de investimentos, o pacote <code>shopspring/decimal</code> passou a dar  suporte à exponenciação de valores arbitrários.</p>
+<p>A priori pensei que era uma boa notícia, dado que o pacote da shopspring é amplamente utilizado pela comunidade, e deveria ter olhos atentos para questões de performances. Fiz então um benchmark comparando diretamente minha implementação (específica para expoentes no formato $1/c$ em torno de 1) à implementação genérica do pacote shopspring.</p>
+<p>No benchmark tive uma surpresa, minha implementação era 100x mais rápida e com menos alocações em relação ao pacote shopspring. Além disso, existe uma <a href="https://github.com/shopspring/decimal/issues/368">issue</a> aberta onde o caching de números fatoriais (em variáveis globais) gera uma race condition, gerando problemas ao rodar o código de forma concorrente.</p>
+<p>Com a finalidade de compartilhar um exemplo de código durante a escrita desse artigo, resolvi reimplementar e publicar a implementação da expansão no repositório  <a href="https://github.com/mqzabin/tsratecalc">mqzabin/tsratecalc</a>.</p>
+<p>Esse repositório fornece uma implementação &ldquo;genérica&rdquo; da expansão para qualquer tipo decimal de precisão arbitrária que respeite as interfaces necessárias. Entretanto, é importante pontuar que esta generalização através do uso de interfaces gera um custo relativamente alto de alocações.</p>
+<p>Mesmo assim, a diferença no benchmark entre a implementação genérica do shospring e minha implementação (também utilizando o tipo contreto da shopspring) chega a 5x (tanto em alocações quanto em velocidade).</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="//localhost:1313/pt-br/">zabin&#39;s blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

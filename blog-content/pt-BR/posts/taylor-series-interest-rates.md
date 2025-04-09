@@ -1,8 +1,7 @@
 
 +++
-title = 'title'
-date = 2024-12-28T12:00:00-03:00
-draft = true
+title = 'Usando matemática para resolver computação de cálculo de juros'
+date = 2025-03-23T12:00:00-03:00
 math = true
 +++
 # Introdução
@@ -31,7 +30,7 @@ Além do volume, o método teria que atender alguns requisitos importantes:
 
 Um problema que surge do ponto 2, é que apesar da taxa informada ser anual, nós precisamos aplicar juros diariamente (ou mensalmente), isto é, precisamos transformar a taxa de juros anual em uma taxa diária, considerando os dias corridos do ano.
 
-As regras desta transformação poderiam variar dependendo do tipo de ativo. A quantidade de dias considerados em um ano corrido (DCC, day count convention) poderia ser tanto 252 (apenas dias úteis) quanto 360 (todos os dias). 
+As regras desta transformação poderiam variar dependendo do tipo de ativo. A quantidade de dias considerados em um ano corrido (DCC, *day count convention*) poderia ser tanto 252 (apenas dias úteis) quanto 360 (todos os dias). 
 
 A taxa de juros anual $R_{total}$, é calculada da seguinte forma:
 
@@ -64,7 +63,7 @@ A necessidade de precisão tornou obrigatório o uso de estruturas numéricas de
 1. Converter os decimais de precisão arbitrária para pontos flutuantes para fazer o cálculo com a `math.Pow` não era uma possibilidade, dado a perda de precisão.
 2. Em geral, decimais de precisão arbitrária possuem um *slice* por de baixo dos panos, fazendo com que o custo de alocações e garbage collector seja muito alto, tanto para representações numéricas, quanto para realizar operações matemáticas.
 3. Computar a raíz de um número não é uma operação matemática básica que pode ser realizada de forma direta, geralmente sendo resolvida com VÁRIAS iterações de VÁRIAS outras operações matemáticas básicas (derretendo o GC e memória, dado o ponto 2).
-4. Na época, as libs que conhecíamos não forneciam funções que computavam a raíz de números decimais genéricos.
+4. Na época, as libs que conhecíamos (nem mesmo o pacote decimal) não forneciam funções que computavam a raíz de números decimais genéricos.
 
 A escolha que tomamos para endereçar esses problemas foi a de implementarmos nós mesmos algum método matemático que calculasse a raiz $n$-ésima. Então escolhemos estudar o uso de Série de Taylor para este problema.
 
@@ -87,11 +86,11 @@ Isso é excelente, porque a precisão que desejamos já é conhecida, então con
 
 O GIF à seguir mostra como a Série de Taylor se comporta em uma função genérica à medida que aumentamos o $n$ da expansão:
 
-![Taylor Series expansion](blog-content/posts/assets/02-taylor-series-generic.gif)
+![Taylor Series expansion](blog-content/posts/assets/taylor-series-generic.gif)
 
 # Encaixando Taylor em nosso problema
 
-O maior problema aqui calcular justamente o valor de $f^{(n)}(x)$, então vamos explorar essa análise neste artigo.
+O maior problema aqui é calcular o valor de $f^{(n)}(x)$, de forma a podermos computa-lo numericamente, então vamos explorar essa análise neste artigo.
 
 Primeiramente, pra facilitar a representação, vamos substituir a raíz $n$-ésima por uma potência equivalente:
 
@@ -102,7 +101,8 @@ Neste caso, conseguimos aplicar a simples regra de derivada de monômios, onde:
 $$
 f(x) = x^{m} \longrightarrow f'(x) = mx^{m-1}
 $$
-Portanto, aplicando em nossa função, e simplificando o expoente, temos:
+
+Portanto, aplicando em nossa função e simplificando o expoente, temos:
 
 $$
 f^{(1)}(x) = \frac{1}{c}x^{\big(\frac{1}{c} - 1\big)} \longrightarrow f^{(1)}(x) = \frac{1}{c}x^{\big(\frac{1-c}{c}\big)}
@@ -174,7 +174,7 @@ $$
 
 Estamos na verdade calculando a raíz $n$-ésima de algum número que estará sempre orbitando o intervalo $(100\%, 120\%)$, isto é, algo entre $1$ e $1.2$.
 
-Porém, peraí! Se podemos considerar $a = 1$ para ser nossa vizinhança de aproximação, o que acontece com a expressão $a^{\frac{1-nc}{c}}$?
+Porém, pera aí! Se podemos considerar $a = 1$ para ser nossa vizinhança de aproximação, o que acontece com a expressão $a^{\frac{1-nc}{c}}$?
 
 Lembrando da época do ensino médio, 1 elevado à qualquer número é igual à 1, isto é:
 
@@ -202,8 +202,35 @@ $$
 
 Abaixo conseguimos ver uma as expansões da nossa função (para DCC 252) até $n=10$:
 
-![02-taylor-series-func.png](blog-content/posts/assets/02-taylor-series-func.png)
+![02-taylor-series-func.png](blog-content/posts/assets/taylor-series-func.png)
 
-#todo
-- [ ] Código
-- [ ] Benchmarks
+Como estamos computando $\sqrt[c]{x+1} -1$, isto é $f(x+1)-1$, podemos simplificar a expressão, definindo uma $r(x)$ como:
+
+$$
+r(x) = f(x+1) - 1 = \sqrt[c]{x+1} -1
+$$
+$$
+\longrightarrow r(x) = \Bigg[ 1 +\sum_{n=1}^{\infty} \frac{1}{c^{n}n!} \Bigg(\prod_{i=1}^{n-1} (1 - ic) \Bigg)  ((x+1)-1)^n \Bigg] -1
+$$
+
+Obtendo:
+
+$$
+r(x) = \sum_{n=1}^{\infty} \frac{1}{c^{n}n!} \Bigg(\prod_{i=1}^{n-1} (1 - ic) \Bigg)  x^n
+$$
+
+Onde a expansão agora é em torno de $x= 0$, dado que $x +1 = 1 \longrightarrow x = 0$.
+
+# Implementação
+
+Após uns meses da minha implementação da expansão de Taylor no projeto de investimentos, o pacote `shopspring/decimal` passou a dar  suporte à exponenciação de valores arbitrários.
+
+A priori pensei que era uma boa notícia, dado que o pacote da shopspring é amplamente utilizado pela comunidade, e deveria ter olhos atentos para questões de performances. Fiz então um benchmark comparando diretamente minha implementação (específica para expoentes no formato $1/c$ em torno de 1) à implementação genérica do pacote shopspring.
+
+No benchmark tive uma surpresa, minha implementação era 100x mais rápida e com menos alocações em relação ao pacote shopspring. Além disso, existe uma [issue](https://github.com/shopspring/decimal/issues/368) aberta onde o caching de números fatoriais (em variáveis globais) gera uma race condition, gerando problemas ao rodar o código de forma concorrente. 
+
+Com a finalidade de compartilhar um exemplo de código durante a escrita desse artigo, resolvi reimplementar e publicar a implementação da expansão no repositório  [mqzabin/tsratecalc](https://github.com/mqzabin/tsratecalc).
+
+Esse repositório fornece uma implementação "genérica" da expansão para qualquer tipo decimal de precisão arbitrária que respeite as interfaces necessárias. Entretanto, é importante pontuar que esta generalização através do uso de interfaces gera um custo relativamente alto de alocações.
+
+Mesmo assim, a diferença no benchmark entre a implementação genérica do shospring e minha implementação (também utilizando o tipo contreto da shopspring) chega a 5x (tanto em alocações quanto em velocidade).
