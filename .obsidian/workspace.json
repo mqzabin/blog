@@ -11,10 +11,14 @@
             "id": "f4d5a67425488d0b",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "blog-content/pt-BR/posts/taylor-series-interest-rates.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "taylor-series-interest-rates"
             }
           }
         ]
@@ -90,6 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "blog-content/pt-BR/posts/taylor-series-interest-rates.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -99,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks"
+              "title": "Backlinks for taylor-series-interest-rates"
             }
           },
           {
@@ -159,6 +164,10 @@
   },
   "active": "f4d5a67425488d0b",
   "lastOpenFiles": [
+    "blog-content/pt-BR/posts/how-to-represent-currency.md",
+    "blog-content/pt-BR/assets/taylor-series-generic.gif",
+    "blog-content/pt-BR/assets/taylor-series-func.png",
+    "blog-content/pt-BR/assets",
     "hugo/public/pt-br/index.xml",
     "hugo/public/pt-br/tags/index.xml",
     "hugo/public/pt-br/posts/index.xml",
@@ -168,15 +177,12 @@
     "hugo/public/pt-br/page/1/index.html",
     "hugo/public/pt-br/page/1",
     "hugo/public/pt-br/page",
-    "hugo/public/pt-br/posts/page/1/index.html",
-    "hugo/public/pt-br/posts/page/1",
     "hugo/public/pt-br/posts/assets/taylor-series-generic.gif",
     "hugo/public/pt-br/posts/assets/taylor-series-func.png",
     "blog-content/posts/taylor-series-interest-rates.md",
     "blog-content/pt-BR/posts/assets/taylor-series-generic.gif",
     "blog-content/pt-BR/posts/assets/taylor-series-func.png",
     "blog-content/pt-BR/posts/taylor-series-interest-rates.md",
-    "blog-content/pt-BR/posts/how-to-represent-currency.md",
     "blog-content/pt-BR/posts/go-fuzzy-beyond-page-1.md",
     "blog-content/pt-BR/_index.md",
     "blog-content/posts/how-to-represent-currency.md",
@@ -188,9 +194,7 @@
     "hugo/public/posts/assets/02-taylor-series-func.png",
     "blog-content/posts/02 - Usando Séries de Taylor para resolver cálculos de taxas de juros no Golang.md",
     "blog-content/posts/assets/02-taylor-series-func.png",
-    "blog-content/posts/assets/02-taylor-series-generic.gif",
     "blog-content/_index.md",
-    "Pasted image 20241229115137.png",
     "blog-content/posts/assets/02.md"
   ]
 }

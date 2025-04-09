@@ -86,7 +86,7 @@ Isso é excelente, porque a precisão que desejamos já é conhecida, então con
 
 O GIF à seguir mostra como a Série de Taylor se comporta em uma função genérica à medida que aumentamos o $n$ da expansão:
 
-![Taylor Series expansion](blog-content/posts/assets/taylor-series-generic.gif)
+![Taylor Series expansion](../assets/taylor-series-generic.gif)
 
 # Encaixando Taylor em nosso problema
 
@@ -202,7 +202,7 @@ $$
 
 Abaixo conseguimos ver uma as expansões da nossa função (para DCC 252) até $n=10$:
 
-![02-taylor-series-func.png](blog-content/posts/assets/taylor-series-func.png)
+![02-taylor-series-func.png](../assets/taylor-series-func.png)
 
 Como estamos computando $\sqrt[c]{x+1} -1$, isto é $f(x+1)-1$, podemos simplificar a expressão, definindo uma $r(x)$ como:
 
