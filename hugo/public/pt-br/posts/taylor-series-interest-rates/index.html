@@ -176,7 +176,7 @@ $$
 E_n(x) = \frac{f^{(n+1)}(a)}{(n+1)!}(x-a)^{(n+1)}
 $$<p>Isso é excelente, porque a precisão que desejamos já é conhecida, então conseguimos parar a soma infinita a medida que atingirmos um erro menor do que a precisão que desejamos.</p>
 <p>O GIF à seguir mostra como a Série de Taylor se comporta em uma função genérica à medida que aumentamos o $n$ da expansão:</p>
-<p><img loading="lazy" src="blog-content/posts/assets/taylor-series-generic.gif" alt="Taylor Series expansion"  />
+<p><img loading="lazy" src="../assets/taylor-series-generic.gif" alt="Taylor Series expansion"  />
 </p>
 <h1 id="encaixando-taylor-em-nosso-problema">Encaixando Taylor em nosso problema<a hidden class="anchor" aria-hidden="true" href="#encaixando-taylor-em-nosso-problema">#</a></h1>
 <p>O maior problema aqui é calcular o valor de $f^{(n)}(x)$, de forma a podermos computa-lo numericamente, então vamos explorar essa análise neste artigo.</p>
@@ -230,7 +230,7 @@ $$
 $$$$
 f(x) = 1 +\sum_{n=1}^{\infty} \frac{1}{c^{n}n!} \Bigg(\prod_{i=1}^{n-1} (1 - ic) \Bigg)  (x-1)^n
 $$<p>Abaixo conseguimos ver uma as expansões da nossa função (para DCC 252) até $n=10$:</p>
-<p><img loading="lazy" src="blog-content/posts/assets/taylor-series-func.png" alt="02-taylor-series-func.png"  />
+<p><img loading="lazy" src="../assets/taylor-series-func.png" alt="02-taylor-series-func.png"  />
 </p>
 <p>Como estamos computando $\sqrt[c]{x+1} -1$, isto é $f(x+1)-1$, podemos simplificar a expressão, definindo uma $r(x)$ como:</p>
 $$

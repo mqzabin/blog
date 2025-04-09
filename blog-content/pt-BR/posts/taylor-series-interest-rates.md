@@ -2,8 +2,10 @@
 +++
 title = 'Usando matemática para resolver computação de cálculo de juros'
 date = 2025-03-23T12:00:00-03:00
+draft = false
 math = true
 +++
+
 # Introdução
 
 Apesar da minha formação em matemática aplicada, atuo como engenheiro de software há vários anos e no meu dia-a-dia do trabalho são raras as situações onde acho aplicações diretas do que aprendi na universidade.
